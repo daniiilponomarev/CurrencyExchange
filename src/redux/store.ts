@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import currencyExchangeReducer from '../containers/currencyExchange/currencyExchangeSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import currencyExchangeReducer, {
+  CurrencyExchangeState,
+} from "../containers/currencyExchange/currencyExchangeSlice";
+
+export type State = { currencyExchange: CurrencyExchangeState };
 
 export default configureStore({
-    reducer: {
-        currencyExchange: currencyExchangeReducer,
-    },
+  reducer: {
+    currencyExchange: currencyExchangeReducer,
+  },
 });
