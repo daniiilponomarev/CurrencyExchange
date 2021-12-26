@@ -1,0 +1,1 @@
+export { GAPS } from "./stylesConstants";
