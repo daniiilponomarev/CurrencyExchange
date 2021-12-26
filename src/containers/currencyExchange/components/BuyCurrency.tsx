@@ -1,5 +1,9 @@
 import React from "react";
+import {useSelector} from "react-redux";
+import {selectBoughtCurrency, selectSoldCurrency} from "../currencyExchangeSlice";
 
 export const BuyCurrency = () => {
-  return <div>BuyCurrency</div>;
+  const boughtCurrency = useSelector(selectBoughtCurrency);
+
+  return <div>{boughtCurrency}</div>;
 };
