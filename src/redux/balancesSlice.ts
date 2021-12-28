@@ -5,9 +5,9 @@ import { CurrencyName } from "../types";
 export type BalancesState = Record<CurrencyName, number>;
 
 const initialState: BalancesState = {
-  USD: 100,
-  EUR: 100,
-  GBP: 100,
+  USD: 111,
+  EUR: 222,
+  GBP: 333,
 };
 
 export const slice = createSlice({

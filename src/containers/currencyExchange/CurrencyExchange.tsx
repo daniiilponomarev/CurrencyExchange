@@ -23,6 +23,8 @@ import {
   cardContentStyle,
   cardStyle,
   currenciesSelectsBoxStyle,
+  currencyExchangeBoxStyle,
+  currencyHeaderStyle,
   headersContainerStyle,
 } from "./CurrencyExchangeStyles";
 
@@ -33,23 +35,24 @@ export const CurrencyExchange = () => {
   const handleExchangeCurrencies = () => dispatch(exchangeCurrencies());
 
   return (
-    <Box sx={{ width: "50%", minWidth: "450px" }}>
+    <Box sx={currencyExchangeBoxStyle}>
       <Card variant="outlined" sx={cardStyle}>
         <CardContent sx={cardContentStyle}>
           <Container sx={headersContainerStyle}>
             <CurrencyExchangeIcon fontSize="large" color="primary" />
             <Typography variant="h4">Currency Exchange</Typography>
           </Container>
-          <Typography variant="h5" sx={{ textAlign: "center", mb: GAPS.xs }}>
+          <Typography variant="h5" sx={currencyHeaderStyle} mb={GAPS.xxl}>
             Buy {boughtCurrency}
           </Typography>
+          <CurrencyRate />
           <Box sx={currenciesSelectsBoxStyle}>
-            <CurrencyRate />
             <SellCurrency />
             <IconButton
               aria-label="exchange currencies"
               color="primary"
               onClick={handleExchangeCurrencies}
+              size="large"
             >
               <ChangeCircleTwoToneIcon />
             </IconButton>
@@ -58,7 +61,7 @@ export const CurrencyExchange = () => {
         </CardContent>
 
         <CardActions sx={cardActionsStyle}>
-          <Button size="small" variant="contained">
+          <Button size="large" variant="contained">
             {"Sell"} {soldCurrency} {"for"} {boughtCurrency}
           </Button>
         </CardActions>

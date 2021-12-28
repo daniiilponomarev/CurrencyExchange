@@ -1,1 +1,2 @@
-export { GAPS } from "./stylesConstants";
+export { GAPS } from "./styles";
+export { CURRENCIES } from "./currencies";
