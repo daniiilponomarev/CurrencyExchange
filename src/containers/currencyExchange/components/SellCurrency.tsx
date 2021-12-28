@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SelectChangeEvent } from "@mui/material/Select";
 
@@ -7,17 +7,20 @@ import {
   selectBoughtCurrency,
   setSoldCurrency,
   exchangeCurrencies,
+  selectSoldCurrencyAmount,
+  setSoldCurrencyAmount,
 } from "../currencyExchangeSlice";
 import { CurrencyName } from "../../../types";
 import { selectBalanceByCurrency } from "../../../redux/balancesSlice";
 import { CurrencySelector } from "../../../components";
 
 export const SellCurrency = () => {
-  const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
   const soldCurrency = useSelector(selectSoldCurrency);
+  const soldCurrencyAmount = useSelector(selectSoldCurrencyAmount);
   const boughtCurrency = useSelector(selectBoughtCurrency);
   const balance = useSelector(selectBalanceByCurrency(soldCurrency));
+  const maximumInputValue = balance + "";
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const newCurrency: CurrencyName = event.target.value as CurrencyName;
@@ -33,16 +36,17 @@ export const SellCurrency = () => {
     event: ChangeEvent<HTMLInputElement>,
     value: number
   ) => {
-    setAmount(value);
+    dispatch(setSoldCurrencyAmount(value));
   };
 
   return (
     <CurrencySelector
       balance={balance}
       currency={soldCurrency}
-      amount={amount}
+      amount={soldCurrencyAmount}
       handleSelectChange={handleSelectChange}
       handleInputChange={handleInputChange}
+      maximumInputValue={maximumInputValue}
     />
   );
 };

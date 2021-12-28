@@ -7,12 +7,16 @@ export type CurrencyExchangeState = {
   soldCurrency: CurrencyName;
   boughtCurrency: CurrencyName;
   rate: number | null;
+  soldCurrencyAmount: number;
+  boughtCurrencyAmount: number;
 };
 
 const initialState: CurrencyExchangeState = {
   soldCurrency: "USD",
   boughtCurrency: "EUR",
-  rate: 1,
+  rate: null,
+  soldCurrencyAmount: 0,
+  boughtCurrencyAmount: 0,
 };
 
 export const slice = createSlice({
@@ -24,6 +28,20 @@ export const slice = createSlice({
     },
     setBoughtCurrency: (state, action: PayloadAction<CurrencyName>) => {
       state.boughtCurrency = action.payload;
+    },
+    setSoldCurrencyAmount: (state, action: PayloadAction<number>) => {
+      const value = action.payload;
+      const newBoughtCurrencyAmount = value / (state.rate || 1);
+
+      state.soldCurrencyAmount = value;
+      state.boughtCurrencyAmount = newBoughtCurrencyAmount;
+    },
+    setBoughtCurrencyAmount: (state, action: PayloadAction<number>) => {
+      const value = action.payload;
+      const newSoldCurrencyAmount = value * (state.rate || 1);
+
+      state.boughtCurrencyAmount = value;
+      state.soldCurrencyAmount = newSoldCurrencyAmount;
     },
     exchangeCurrencies: (state) => {
       const soldCurrency = state.soldCurrency;
@@ -41,12 +59,18 @@ export const {
   setBoughtCurrency,
   exchangeCurrencies,
   setRate,
+  setSoldCurrencyAmount,
+  setBoughtCurrencyAmount,
 } = slice.actions;
 
 export const selectSoldCurrency = (state: State) =>
   state.currencyExchange.soldCurrency;
 export const selectBoughtCurrency = (state: State) =>
   state.currencyExchange.boughtCurrency;
+export const selectSoldCurrencyAmount = (state: State) =>
+  state.currencyExchange.soldCurrencyAmount;
+export const selectBoughtCurrencyAmount = (state: State) =>
+  state.currencyExchange.boughtCurrencyAmount;
 export const selectRate = (state: State) => state.currencyExchange.rate;
 
 export default slice.reducer;

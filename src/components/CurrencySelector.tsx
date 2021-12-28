@@ -14,6 +14,7 @@ type CurrencySelectorProps = {
   balance: number;
   currency: CurrencyName;
   amount: number;
+  maximumInputValue: string;
   handleSelectChange: (event: SelectChangeEvent) => void;
   handleInputChange: (
     event: ChangeEvent<HTMLInputElement>,
@@ -27,6 +28,7 @@ export const CurrencySelector = ({
   amount = 0,
   handleSelectChange,
   handleInputChange,
+  maximumInputValue,
 }: CurrencySelectorProps) => {
   return (
     <>
@@ -44,8 +46,8 @@ export const CurrencySelector = ({
           value={amount}
           currencySymbol=""
           onChange={handleInputChange}
-          maximumValue={balance}
-          minimumValue={0}
+          maximumValue={maximumInputValue}
+          minimumValue={"0"}
         />
         <Typography variant="subtitle1">Balance: {balance}</Typography>
       </FormControl>
