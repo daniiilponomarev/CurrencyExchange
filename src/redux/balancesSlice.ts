@@ -21,12 +21,26 @@ export const slice = createSlice({
       const { currency, value } = action.payload;
       state[currency] = value;
     },
+    buyCurrency: (
+      state,
+      action: PayloadAction<{
+        soldCurrency: CurrencyName;
+        boughtCurrency: CurrencyName;
+        amount: number;
+        rate: number | null;
+      }>
+    ) => {
+      const { soldCurrency, boughtCurrency, amount, rate } = action.payload;
+      state[soldCurrency] = state[soldCurrency] - amount;
+      state[boughtCurrency] = state[boughtCurrency] + amount * (rate || 1);
+    },
   },
 });
 
-export const { setBalance } = slice.actions;
+export const { setBalance, buyCurrency } = slice.actions;
 
-export const selectBalanceByCurrency = (currency: CurrencyName)=> (state: State, ) =>
-  state.balances[currency];
+export const selectBalanceByCurrency =
+  (currency: CurrencyName) => (state: State) =>
+    state.balances[currency];
 
 export default slice.reducer;

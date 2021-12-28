@@ -49,7 +49,7 @@ export const CurrencySelector = ({
           maximumValue={maximumInputValue}
           minimumValue={"0"}
         />
-        <Typography variant="subtitle1">Balance: {balance}</Typography>
+        <Typography variant="subtitle1">Balance: {balance.toFixed(2)}</Typography>
       </FormControl>
     </>
   );

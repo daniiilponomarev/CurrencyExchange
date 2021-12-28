@@ -31,22 +31,22 @@ export const slice = createSlice({
     },
     setSoldCurrencyAmount: (state, action: PayloadAction<number>) => {
       const value = action.payload;
-      const newBoughtCurrencyAmount = value / (state.rate || 1);
+      const newBoughtCurrencyAmount = value * (state.rate || 1);
 
       state.soldCurrencyAmount = value;
       state.boughtCurrencyAmount = newBoughtCurrencyAmount;
     },
     setBoughtCurrencyAmount: (state, action: PayloadAction<number>) => {
       const value = action.payload;
-      const newSoldCurrencyAmount = value * (state.rate || 1);
+      const newSoldCurrencyAmount = value / (state.rate || 1);
 
       state.boughtCurrencyAmount = value;
       state.soldCurrencyAmount = newSoldCurrencyAmount;
     },
     exchangeCurrencies: (state) => {
-      const soldCurrency = state.soldCurrency;
+      const soldCurrencyTemp = state.soldCurrency;
       state.soldCurrency = state.boughtCurrency;
-      state.boughtCurrency = soldCurrency;
+      state.boughtCurrency = soldCurrencyTemp;
     },
     setRate: (state, action: PayloadAction<number | null>) => {
       state.rate = action.payload;

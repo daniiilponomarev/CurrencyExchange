@@ -16,7 +16,9 @@ import {
   selectBoughtCurrency,
   selectSoldCurrency,
   exchangeCurrencies,
+  selectRate, selectSoldCurrencyAmount,
 } from "./currencyExchangeSlice";
+import { buyCurrency } from "../../redux/balancesSlice";
 import { BuyCurrency, CurrencyRate, SellCurrency } from "./components";
 import {
   cardActionsStyle,
@@ -31,8 +33,14 @@ import {
 export const CurrencyExchange = () => {
   const soldCurrency = useSelector(selectSoldCurrency);
   const boughtCurrency = useSelector(selectBoughtCurrency);
+  const amount = useSelector(selectSoldCurrencyAmount);
+  const rate = useSelector(selectRate);
   const dispatch = useDispatch();
   const handleExchangeCurrencies = () => dispatch(exchangeCurrencies());
+
+  const handleBuyClick = () => {
+    dispatch(buyCurrency({ soldCurrency, boughtCurrency, amount, rate }));
+  };
 
   return (
     <Box sx={currencyExchangeBoxStyle}>
@@ -61,7 +69,7 @@ export const CurrencyExchange = () => {
         </CardContent>
 
         <CardActions sx={cardActionsStyle}>
-          <Button size="large" variant="contained">
+          <Button size="large" variant="contained" onClick={handleBuyClick}>
             {"Sell"} {soldCurrency} {"for"} {boughtCurrency}
           </Button>
         </CardActions>
