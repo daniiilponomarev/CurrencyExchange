@@ -14,13 +14,6 @@ export const slice = createSlice({
   name: "currencyExchange",
   initialState,
   reducers: {
-    setBalance: (
-      state,
-      action: PayloadAction<{ currency: CurrencyName; value: number }>
-    ) => {
-      const { currency, value } = action.payload;
-      state[currency] = value;
-    },
     buyCurrency: (
       state,
       action: PayloadAction<{
@@ -37,7 +30,7 @@ export const slice = createSlice({
   },
 });
 
-export const { setBalance, buyCurrency } = slice.actions;
+export const { buyCurrency } = slice.actions;
 
 export const selectBalanceByCurrency =
   (currency: CurrencyName) => (state: State) =>

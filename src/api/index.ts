@@ -1,1 +1,1 @@
-export { ratesUrl, accessKey, REFETCH_RATES_INTERVAL } from "./RatesRequests";
+export { REFETCH_RATES_INTERVAL, getRatesData } from "./RatesRequests";

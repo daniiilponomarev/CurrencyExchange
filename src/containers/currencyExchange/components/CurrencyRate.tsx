@@ -1,6 +1,5 @@
 import React from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 
@@ -10,7 +9,7 @@ import {
   selectSoldCurrency,
   setRate,
 } from "../currencyExchangeSlice";
-import { accessKey, ratesUrl, REFETCH_RATES_INTERVAL } from "../../../api";
+import { REFETCH_RATES_INTERVAL, getRatesData } from "../../../api";
 
 export const CurrencyRate = () => {
   const soldCurrency = useSelector(selectSoldCurrency);
@@ -20,15 +19,7 @@ export const CurrencyRate = () => {
 
   const ratesData = useQuery(
     `rates ${soldCurrency}`,
-    async () => {
-      const response = await axios.get(`${ratesUrl}`, {
-        params: {
-          apikey: accessKey,
-          base_currency: soldCurrency,
-        },
-      });
-      return response.data;
-    },
+    getRatesData(soldCurrency),
     {
       refetchInterval: REFETCH_RATES_INTERVAL,
       refetchOnWindowFocus: false,
